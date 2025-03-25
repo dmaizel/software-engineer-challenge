@@ -1,3 +1,10 @@
+# ANSWER
+
+
+
+
+
+
 # Software Engineer Coding Challenge: Distributed Log Analysis System
 
 ## Background
