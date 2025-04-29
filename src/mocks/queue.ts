@@ -1,0 +1,32 @@
+// todo fix later
+// @ts-ignore
+import eventEmitter from 'node:events'
+import {NEW_MESSAGE_EVENT} from "../consts/queues";
+
+const queues: Record<string, string[]> = {};
+ // todo implement lock
+// todo implement pub sub
+
+function isEmpty(queueId: string) {
+    return queues[queueId].length === 0;
+}
+function isQueueExist(queueId: string) {
+    return queues[queueId];
+}
+
+export function addToQueue(item: string, queueId: string) {
+    if (!isQueueExist(queueId)) {
+        queues[queueId] = [];
+        console.log("new queue created with queue id ", queueId);
+    }
+    queues[queueId].push(item);
+    console.log("new message pushed to queue with queue id " + queueId, item);
+    eventEmitter.emit(NEW_MESSAGE_EVENT + queueId);
+}
+
+export function getFromQueue(queueId: string): string | undefined {
+    if(!isQueueExist(queueId) || isEmpty(queueId)) {
+        return undefined;
+    }
+    return queues[queueId].shift();
+}
