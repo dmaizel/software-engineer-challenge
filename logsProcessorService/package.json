@@ -1,0 +1,25 @@
+{
+  "name": "software-engineer-challenge",
+  "version": "1.0.0",
+  "description": "## Background Your company operates a large-scale microservices architecture with hundreds of services running across multiple Kubernetes clusters. The DevOps team needs a robust, scalable system to collect, analyze, and visualize logs from all these services in real-time.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "../node_modules/.bin/tsc -p tsconfig.json",
+    "start": "node src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amsalemben/software-engineer-challenge.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fastify": "^5.3.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "typescript": "^5.8.3"
+  }
+}
