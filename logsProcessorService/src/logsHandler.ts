@@ -1,5 +1,8 @@
+// @ts-ignore
 import {LOGS_QUEUE_ID, NEW_MESSAGE_EVENT} from "./consts/queues.ts";
+// @ts-ignore
 import {getFromQueue} from "./mocks/queue.ts";
+// @ts-ignore
 import {emitter} from "./mocks/events.ts";
 
 emitter.on(NEW_MESSAGE_EVENT + LOGS_QUEUE_ID, () => {

@@ -1,9 +1,9 @@
 import fastify from 'fastify';
 // todo do better import
+// @ts-ignore
 import { a } from './logsHandler.ts';
+// @ts-ignore
 import { generateLog } from './mocks/logsGenerator.ts';
-console.log('a', a)
-console.log('generate log', generateLog)
 
 const server = fastify()
 

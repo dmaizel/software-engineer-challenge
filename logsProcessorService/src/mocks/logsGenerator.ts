@@ -1,6 +1,7 @@
-
 // todo generate random time
+// @ts-ignore
 import {addToQueue} from "./queue.ts";
+// @ts-ignore
 import {LOGS_QUEUE_ID} from "../consts/queues.ts";
 
 const interval = 5000;

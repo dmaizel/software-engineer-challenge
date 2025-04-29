@@ -1,4 +1,6 @@
+// @ts-ignore
 import {NEW_MESSAGE_EVENT} from "../consts/queues.ts";
+// @ts-ignore
 import {emitter} from "./events.ts";
 
 const queues: Record<string, string[]> = {};
