@@ -1,12 +1,11 @@
 
 // todo generate random time
-import {addToQueue} from "./queue";
-import {LOGS_QUEUE_ID} from "../consts/queues";
-import {Log} from "../types";
+import {addToQueue} from "./queue.ts";
+import {LOGS_QUEUE_ID} from "../consts/queues.ts";
 
-const interval = 1000;
+const interval = 5000;
 
-function generateLog():Log {
+export function generateLog() {
     // todo generate random log
     return {
         service: 'service_name',

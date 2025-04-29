@@ -2,9 +2,10 @@
   "extends": "fastify-tsconfig",
   "compilerOptions": {
     "outDir": "dist",
+    "allowImportingTsExtensions": true,
     "sourceMap": true
   },
   "include": [
-    "logsProcessorService/src/**/*.ts"
+    "/src/**/*.ts"
   ]
 }

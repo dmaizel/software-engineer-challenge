@@ -1,7 +1,5 @@
-// todo fix later
-// @ts-ignore
-import eventEmitter from 'node:events'
-import {NEW_MESSAGE_EVENT} from "../consts/queues";
+import {NEW_MESSAGE_EVENT} from "../consts/queues.ts";
+import {emitter} from "./events.ts";
 
 const queues: Record<string, string[]> = {};
  // todo implement lock
@@ -17,14 +15,15 @@ function isQueueExist(queueId: string) {
 export function addToQueue(item: string, queueId: string) {
     if (!isQueueExist(queueId)) {
         queues[queueId] = [];
-        console.log("new queue created with queue id ", queueId);
+        console.log("new queue created with queue id", queueId);
     }
     queues[queueId].push(item);
     console.log("new message pushed to queue with queue id " + queueId, item);
-    eventEmitter.emit(NEW_MESSAGE_EVENT + queueId);
+    emitter.emit(NEW_MESSAGE_EVENT + queueId);
 }
 
 export function getFromQueue(queueId: string): string | undefined {
+    console.log('getFromQueue', queueId);
     if(!isQueueExist(queueId) || isEmpty(queueId)) {
         return undefined;
     }
