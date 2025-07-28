@@ -4,9 +4,11 @@ import helmet from "helmet";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import routes from "./routes";
+import { connectDatabase, disconnectDatabase } from "./odm";
 
 dotenv.config();
 
+connectDatabase();
 const app = express();
 const PORT: number = parseInt(process.env["PORT"] || "3000", 10);
 
@@ -25,4 +27,9 @@ app.listen(PORT, () => {
   console.log(`Environment: ${process.env["NODE_ENV"] || "development"}`);
 });
 
+
+process.on("SIGINT", async () => {
+  await disconnectDatabase();
+  process.exit(0);
+});
 export default app;

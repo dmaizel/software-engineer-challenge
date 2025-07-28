@@ -12,7 +12,9 @@
     "lint:fix": "eslint src/**/*.ts --fix",
     "start:ingestion": "ts-node src/microservices/ingestion/index.ts",
     "start:fake-queue": "ts-node src/fake-queue/fake-queue-server.ts",
-    "start:mock-service": "ts-node dev/mockServiceLog.ts"
+    "start:mock-service": "ts-node dev/mockServiceLog.ts",
+    "start:api": "ts-node src/app.ts",
+    "start:all": "npm run start:fake-queue & npm run start:ingestion & npm run start:mock-service & npm run start:api"
   },
   "keywords": [
     "express",
@@ -29,7 +31,9 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "helmet": "^7.1.0",
-    "morgan": "^1.10.0"
+    "mongoose": "^8.16.5",
+    "morgan": "^1.10.0",
+    "zod": "^4.0.10"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

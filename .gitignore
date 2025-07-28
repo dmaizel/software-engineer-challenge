@@ -15,10 +15,6 @@ build/
 .env.test.local
 .env.production.local
 
-# Logs
-logs/
-*.log
-
 # Runtime data
 pids/
 *.pid
