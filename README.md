@@ -1,74 +1,154 @@
-# Software Engineer Coding Challenge: Distributed Log Analysis System
+# Express API Service Template (TypeScript)
 
-## Background
-Your company operates a large-scale microservices architecture with hundreds of services running across multiple Kubernetes clusters. The DevOps team needs a robust, scalable system to collect, analyze, and visualize logs from all these services in real-time.
+A modern, production-ready Node.js Express API service template built with TypeScript.
 
-## Your Task
-Design and implement core components of a simplified distributed log analysis system. You have **3 hours** to complete as much as possible. Focus on demonstrating your system design skills, code quality, and ability to make trade-offs under time constraints.
+## Features
 
-### Requirements
+- ⚡ **TypeScript** - Full TypeScript support with strict type checking
+- 🚀 **Express.js** - Fast, unopinionated web framework
+- 🛡️ **Security** - Helmet.js for security headers
+- 🔒 **CORS** - Cross-Origin Resource Sharing support
+- 📝 **Logging** - Morgan HTTP request logger
+- 🧪 **Testing** - Jest testing framework with TypeScript support
+- 📏 **Linting** - ESLint with TypeScript rules
+- 🔄 **Hot Reload** - Nodemon for development
+- 📦 **Build System** - TypeScript compiler with source maps
 
-1. Log Ingestion Service
-   - Implement a service to ingest logs from multiple sources.
-   - **Notes:**
-      - You can simulate log generation with a simple script or use existing log files.
-      - Examples of log sources include Kubernetes pods, Docker containers, AWS CloudWatch, or application-specific logs.
+## Project Structure
 
-2. **Basic Log Processing Pipeline**
-   - Implement basic log parsing and enrichment.
-   - **Notes:**
-      - You can use a simple log format (e.g., timestamp, log level, message).
-      - Consider what data you'd want to extract from logs to enable efficient querying and analysis (e.g., timestamp, log level, service name).
+```
+src/
+├── app.ts              # Main application entry point
+├── routes/
+│   └── index.ts        # Main routes
+├── middleware/
+│   └── errorHandler.ts # Custom error handling
+├── types/
+│   └── index.ts        # TypeScript type definitions
+└── __tests__/          # Test files
+```
 
-3. **Storage and Indexing**
-   - Design a storage solution that allows for efficient querying and analysis of logs.
-   - **Notes:**
-      - Consider how to handle log retention and archiving.
+## Getting Started
 
-4. **Query Service**
-   - Implement a simple query API to retrieve logs based on criteria like time range and log level.
-   - **Notes:**
-      - **Optional:** Include one additional feature, such as aggregation or pattern matching.
+### Prerequisites
 
-5. **System Architecture**
-   - Provide a high-level architecture diagram of the system.
-   - Explain how the system would scale to handle increasing load.
-   - Discuss potential failure points and how you'd address them.
+- Node.js (>= 16.0.0)
+- npm or yarn
 
-6. **Real-time Alerting (Optional)**
-   - Design a simple real-time alerting system.
-   - **Implementation:**
-      - Trigger alerts based on log patterns or thresholds (e.g., error logs exceeding a certain count or specific error messages appearing).
-      - Send a mock notification (e.g., print to the console, log to a file) when the alert condition is met.
+### Installation
 
-## Evaluation Criteria
-- System design and architecture
-- Code quality and organization
-- Performance considerations and optimizations
-- Error handling and logging
-- Scalability and distributed systems concepts
-- Ability to explain design decisions and trade-offs
-- Completeness of solution given time constraints
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd express-api-service
+```
 
-## Deliverables
-1. Source code for implemented components
-2. Architecture diagram and explanation
-3. README with:
-   - Setup and run instructions
-   - Explanation of design decisions and trade-offs
-   - Discussion of what you'd do differently with more time
-4. Brief presentation (5-10 minutes) of your solution, followed by a Q&A session
+2. Install dependencies:
+```bash
+npm install
+```
 
-## Note
-You're not expected to implement handle all requirements or features in the given timeframe. As a software engineer, part of your role is to make decisions about what to prioritize given limited time and resources. Choose the components and features you believe are most critical or best demonstrate your skills and approach. Be prepared to explain your choices and discuss how you'd implement the remaining parts if given more time.
+3. Set up environment variables:
+```bash
+cp env.example .env
+# Edit .env with your configuration
+```
 
-## Submission Instructions
-1. Fork this repository to your own GitHub account.
-2. Clone your forked repository to your local machine.
-3. Create a new branch for your work.
-4. Implement your solution, making commits as you go.
-5. Push your changes to your GitHub repository.
-6. Create a pull request from your branch to the main branch of your forked repository.
-7. Send us the link to your pull request for review.
+4. Start development server:
+```bash
+npm run dev
+```
 
-Good luck!
+The server will start on `http://localhost:3000`
+
+### Available Scripts
+
+- `npm run dev` - Start development server with hot reload
+- `npm run build` - Build TypeScript to JavaScript
+- `npm start` - Start production server
+- `npm test` - Run tests
+- `npm run lint` - Run ESLint
+- `npm run lint:fix` - Fix ESLint errors
+
+## API Endpoints
+
+### Health Check
+- `GET /health` - Server health status
+
+### API Routes
+- `GET /api/v1/` - Welcome message
+- `GET /api/v1/users` - Get users (example)
+- `POST /api/v1/users` - Create user (example)
+
+## Development
+
+### Adding New Routes
+
+1. Create a new route file in `src/routes/`
+2. Import and use it in `src/routes/index.ts`
+
+Example:
+```typescript
+// src/routes/users.ts
+import { Router, Request, Response } from 'express';
+
+const router = Router();
+
+router.get('/', (req: Request, res: Response) => {
+  res.json({ users: [] });
+});
+
+export default router;
+```
+
+### Adding Middleware
+
+Create middleware functions in `src/middleware/` and import them in `src/app.ts`.
+
+### TypeScript Types
+
+Define your types in `src/types/index.ts` and import them where needed.
+
+## Testing
+
+Run tests with:
+```bash
+npm test
+```
+
+Run tests with coverage:
+```bash
+npm test -- --coverage
+```
+
+## Production
+
+1. Build the project:
+```bash
+npm run build
+```
+
+2. Start the production server:
+```bash
+npm start
+```
+
+## Environment Variables
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `PORT` | Server port | `3000` |
+| `NODE_ENV` | Environment | `development` |
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Run linting and tests
+6. Submit a pull request
+
+## License
+
+MIT License - see LICENSE file for details
