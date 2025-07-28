@@ -10,7 +10,7 @@ export const buildSearchQuery = (query: LogSearchQuery) => {
   const filterQuery: RootFilterQuery<ILog> = {};
 
   if (query.serviceName) {
-    filterQuery.serviceName = { $regex: query.serviceName, $options: "i" };
+    filterQuery.serviceName = { $in: query.serviceName };
   }
 
   if (query.message) {
@@ -18,7 +18,7 @@ export const buildSearchQuery = (query: LogSearchQuery) => {
   }
 
   if (query.logLevel) {
-    filterQuery.logLevel = query.logLevel;
+    filterQuery.logLevel = { $in: query.logLevel };
   }
 
   if (query.startDate) {
