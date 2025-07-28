@@ -1,11 +1,20 @@
-# Express API Service Template (TypeScript)
+# Log Ingestion and Search System
 
-A modern, production-ready Node.js Express API service template built with TypeScript.
+A distributed log processing system built with Node.js, TypeScript, and MongoDB. This system simulates a production logging infrastructure with multiple microservices working together to ingest, store, and search log data.
+
+## System Architecture
+
+The system consists of four main components:
+
+1. **Mock Queue Server** (Port 3001) - Simulates a message queue provider (like AWS SQS)
+2. **Mock Service** - Continuously generates log messages and sends them to the queue
+3. **Ingestion Service** - Consumes log messages from the queue and stores them in MongoDB
+4. **API Server** (Port 3000) - Provides search endpoints to query the stored logs
 
 ## Features
 
 - ⚡ **TypeScript** - Full TypeScript support with strict type checking
-- 🚀 **Express.js** - Fast, unopinionated web framework
+- 🚀 **Express.js** - Fast, unopinionated web framework for API endpoints
 - 🛡️ **Security** - Helmet.js for security headers
 - 🔒 **CORS** - Cross-Origin Resource Sharing support
 - 📝 **Logging** - Morgan HTTP request logger
@@ -13,19 +22,32 @@ A modern, production-ready Node.js Express API service template built with TypeS
 - 📏 **Linting** - ESLint with TypeScript rules
 - 🔄 **Hot Reload** - Nodemon for development
 - 📦 **Build System** - TypeScript compiler with source maps
+- 🗄️ **MongoDB** - Document database for log storage
+- 🔍 **Search API** - RESTful endpoints for querying logs
 
 ## Project Structure
 
 ```
 src/
-├── app.ts              # Main application entry point
+├── app.ts                          # Main API server entry point
 ├── routes/
-│   └── index.ts        # Main routes
-├── middleware/
-│   └── errorHandler.ts # Custom error handling
-├── types/
-│   └── index.ts        # TypeScript type definitions
-└── __tests__/          # Test files
+│   ├── index.ts                    # Main routes
+│   └── searchController/           # Log search functionality
+├── microservices/
+│   └── ingestion/
+│       ├── index.ts                # Log ingestion service
+│       └── validation.ts           # Log message validation
+├── fake-queue/
+│   ├── fake-queue-server.ts        # Mock queue server
+│   └── queue.ts                    # Queue implementation
+├── logger-sdk/
+│   └── logger.ts                   # Logger SDK for services
+├── odm/
+│   ├── index.ts                    # Database connection
+│   └── Logs/                       # Log data models and repository
+├── common/
+│   └── queue/                      # Queue utilities
+└── types/                          # TypeScript type definitions
 ```
 
 ## Getting Started
@@ -34,13 +56,14 @@ src/
 
 - Node.js (>= 16.0.0)
 - npm or yarn
+- MongoDB (local or cloud instance)
 
 ### Installation
 
 1. Clone the repository:
 ```bash
 git clone <repository-url>
-cd express-api-service
+cd software-engineer-challenge
 ```
 
 2. Install dependencies:
@@ -48,22 +71,33 @@ cd express-api-service
 npm install
 ```
 
-3. Set up environment variables:
+3. Set up mongo docker:
 ```bash
-cp env.example .env
-# Edit .env with your configuration
+   docker-compose up -d 
 ```
 
-4. Start development server:
+4. Start all services (or start each one independently):
 ```bash
-npm run dev
+npm run start:all
 ```
 
-The server will start on `http://localhost:3000`
+This will start all four services concurrently:
+- Mock Queue Server on port 3001
+- Mock Service (generating logs)
+- Ingestion Service (consuming and storing logs)
+- API Server on port 3000
+
+### Individual Service Scripts
+
+- `npm run start:fake-queue` - Start the mock queue server (replaces SQS/AWS MQ)
+- `npm run start:mock-service` - Start the mock service that generates log messages
+- `npm run start:ingestion` - Start the ingestion service that consumes logs and saves to DB
+- `npm run start:api` - Start the API server for searching logs
 
 ### Available Scripts
 
-- `npm run dev` - Start development server with hot reload
+- `npm run start:all` - Start all services concurrently
+- `npm run dev` - Start development server with hot reload (API only)
 - `npm run build` - Build TypeScript to JavaScript
 - `npm start` - Start production server
 - `npm test` - Run tests
@@ -72,83 +106,58 @@ The server will start on `http://localhost:3000`
 
 ## API Endpoints
 
-### Health Check
-- `GET /health` - Server health status
+### Search Logs
+- `POST /api/search` - Search logs with query parameters
 
-### API Routes
-- `GET /api/v1/` - Welcome message
-- `GET /api/v1/users` - Get users (example)
-- `POST /api/v1/users` - Create user (example)
+Example request:
+```json
+{
+  "query": "error",
+  "page": 1
+}
+```
+
+Response:
+```json
+{
+  "results": [
+    {
+      "message": "This is a test error log",
+      "logLevel": "error",
+      "serviceName": "test",
+      "timestamp": "2024-01-01T00:00:00.000Z"
+    }
+  ],
+  "total": 1
+}
+```
+
+## How It Works
+
+1. **Mock Service** continuously generates log messages (info/error) every 2 seconds and sends them to the queue
+2. **Mock Queue Server** acts as a message broker, storing messages in a FIFO queue
+3. **Ingestion Service** polls the queue every 5 seconds, consumes messages, validates them, and stores them in MongoDB
+4. **API Server** provides search endpoints to query the stored logs with pagination support
 
 ## Development
 
-### Adding New Routes
+### Adding New Log Levels
 
-1. Create a new route file in `src/routes/`
-2. Import and use it in `src/routes/index.ts`
+Modify the `logBankMessageBank` in `dev/mockServiceLog.ts` to add new log levels and messages.
 
-Example:
-```typescript
-// src/routes/users.ts
-import { Router, Request, Response } from 'express';
+### Extending Search Functionality
 
-const router = Router();
+Add new search parameters in `src/routes/searchController/validation.ts` and update the search logic in `searchController.ts`.
 
-router.get('/', (req: Request, res: Response) => {
-  res.json({ users: [] });
-});
+### Database Schema
 
-export default router;
-```
+Logs are stored with the following structure:
+- `message`: The log message content
+- `logLevel`: Log level (info, error, etc.)
+- `serviceName`: Name of the service that generated the log
+- `timestamp`: When the log was created
+- `metadata`: Additional log metadata (currently empty object)
 
-### Adding Middleware
-
-Create middleware functions in `src/middleware/` and import them in `src/app.ts`.
-
-### TypeScript Types
-
-Define your types in `src/types/index.ts` and import them where needed.
-
-## Testing
-
-Run tests with:
-```bash
-npm test
-```
-
-Run tests with coverage:
-```bash
-npm test -- --coverage
-```
-
-## Production
-
-1. Build the project:
-```bash
-npm run build
-```
-
-2. Start the production server:
-```bash
-npm start
-```
 
 ## Environment Variables
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `PORT` | Server port | `3000` |
-| `NODE_ENV` | Environment | `development` |
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Run linting and tests
-6. Submit a pull request
-
-## License
-
-MIT License - see LICENSE file for details
+We do have dotenv, however, for simplicity we hardcoded the local variables..
