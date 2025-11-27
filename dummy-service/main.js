@@ -1,15 +1,16 @@
 function generateDummyText() {
-  const words = ['lorem', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur', 'adipiscing', 'elit']
-  let result = ''
+  const words = ['lorem', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur', 'adipiscing', 'elit'];
+  let result = '';
   for (let i = 0; i < 10; i++) {
-    const randomIndex = Math.floor(Math.random() * words.length)
-    result += words[randomIndex] + ' '
+    const randomIndex = Math.floor(Math.random() * words.length);
+    result += words[randomIndex] + ' ';
   }
-  const t = result.trim() + '.'
+  const t = result.trim() + '.';
 
-  console.info(t)
+  if (Math.random() > 0.5) console.info(t);
+  else console.error(t);
 }
 
-console.info('starting generating random texts...')
+console.info('starting generating random texts...');
 
-setInterval(generateDummyText, 1_000)
+setInterval(generateDummyText, 1_000);

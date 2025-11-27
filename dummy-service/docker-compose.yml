@@ -3,4 +3,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: dummy_service
+    container_name: dummy_service_1
+
+  app2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dummy_service_2
