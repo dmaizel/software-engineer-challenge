@@ -11,8 +11,8 @@ export class LogsEnrichmentService {
   async process() {
     for await (const logChunk of this.dockerListener) {
       const enrichedLog = this.enrichLog(logChunk);
-      console.log({ logChunk, enrichedLog });
-      this.logsPersistentStorage.upsert(enrichedLog);
+
+      await this.logsPersistentStorage.queue(enrichedLog);
     }
   }
 

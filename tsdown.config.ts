@@ -1,4 +1,4 @@
-import { defineConfig } from 'tsdown'
+import { defineConfig } from 'tsdown';
 
 export default defineConfig({
   entry: ['src/main.ts'],
@@ -11,4 +11,5 @@ export default defineConfig({
   target: 'node20',
   watch: ['src'],
   onSuccess: 'node --enable-source-maps dist/main.js',
-})
+  external: ['@prisma/client'],
+});

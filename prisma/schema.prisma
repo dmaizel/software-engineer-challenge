@@ -1,0 +1,18 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Log {
+  id          String   @id @default(uuid())
+  timestamp   DateTime
+  logLevel    String   @map("log_level")
+  message     String
+  containerId String   @map("container_id")
+
+  @@index([timestamp, logLevel])
+}
