@@ -13,6 +13,7 @@
     "format:check": "prettier --check ."
   },
   "devDependencies": {
+    "@types/dockerode": "^3.3.47",
     "@types/node": "^24.10.1",
     "@typescript-eslint/eslint-plugin": "^8.48.0",
     "@typescript-eslint/parser": "^8.48.0",
@@ -21,5 +22,8 @@
     "tsdown": "^0.14.2",
     "typescript": "^5.9.3"
   },
-  "private": true
+  "private": true,
+  "dependencies": {
+    "dockerode": "^4.0.9"
+  }
 }
