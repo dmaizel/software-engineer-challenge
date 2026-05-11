@@ -5,6 +5,16 @@ namespace LogAnalysis.System.Pipeline;
 
 public sealed class LogChannel
 {
-    public ChannelWriter<LogEntry> Writer => throw new NotImplementedException();
-    public ChannelReader<LogEntry> Reader => throw new NotImplementedException();
+    private const int Capacity = 10_000;
+
+    private readonly Channel<LogEntry> _channel = Channel.CreateBounded<LogEntry>(
+        new BoundedChannelOptions(Capacity)
+        {
+            FullMode     = BoundedChannelFullMode.DropOldest,
+            SingleReader = true,
+            SingleWriter = false
+        });
+
+    public ChannelWriter<LogEntry> Writer => _channel.Writer;
+    public ChannelReader<LogEntry> Reader => _channel.Reader;
 }
