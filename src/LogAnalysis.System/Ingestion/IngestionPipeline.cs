@@ -1,6 +1,6 @@
-using LogAnalysis.Service.Pipeline;
+using LogAnalysis.System.Pipeline;
 
-namespace LogAnalysis.Service.Ingestion;
+namespace LogAnalysis.System.Ingestion;
 
 public sealed class IngestionPipeline(
     IEnumerable<ILogParser>      parsers,

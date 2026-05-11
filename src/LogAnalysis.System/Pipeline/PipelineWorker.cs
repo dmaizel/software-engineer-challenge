@@ -1,6 +1,6 @@
-using LogAnalysis.Service.Storage;
+using LogAnalysis.System.Storage;
 
-namespace LogAnalysis.Service.Pipeline;
+namespace LogAnalysis.System.Pipeline;
 
 public sealed class PipelineWorker(
     LogChannel              channel,

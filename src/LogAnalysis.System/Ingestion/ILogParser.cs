@@ -1,6 +1,6 @@
-using LogAnalysis.Service.Domain;
+using LogAnalysis.System.Domain;
 
-namespace LogAnalysis.Service.Ingestion;
+namespace LogAnalysis.System.Ingestion;
 
 public interface ILogParser
 {

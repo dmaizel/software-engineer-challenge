@@ -1,7 +1,7 @@
 using System.Threading.Channels;
-using LogAnalysis.Service.Domain;
+using LogAnalysis.System.Domain;
 
-namespace LogAnalysis.Service.Pipeline;
+namespace LogAnalysis.System.Pipeline;
 
 public sealed class LogChannel
 {

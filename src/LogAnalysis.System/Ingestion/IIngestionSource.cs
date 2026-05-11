@@ -1,4 +1,4 @@
-namespace LogAnalysis.Service.Ingestion;
+namespace LogAnalysis.System.Ingestion;
 
 public interface IIngestionSource
 {

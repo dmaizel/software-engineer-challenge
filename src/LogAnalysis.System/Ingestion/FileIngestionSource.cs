@@ -1,4 +1,4 @@
-namespace LogAnalysis.Service.Ingestion;
+namespace LogAnalysis.System.Ingestion;
 
 public sealed class FileIngestionSource(
     IngestionPipeline               pipeline,

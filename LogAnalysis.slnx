@@ -1,5 +1,5 @@
 <Solution>
   <Folder Name="/src/">
-    <Project Path="src/LogAnalysis.Service/LogAnalysis.Service.csproj" />
+    <Project Path="src/LogAnalysis.System/LogAnalysis.System.csproj" />
   </Folder>
 </Solution>
