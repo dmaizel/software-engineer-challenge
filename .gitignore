@@ -1,0 +1,20 @@
+# Build output
+bin/
+obj/
+
+# IDE / user files
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+
+# Runtime artifacts produced by the app
+*.db
+*.db-shm
+*.db-wal
+alerts.log
+
+# OS
+.DS_Store
+Thumbs.db
