@@ -28,7 +28,7 @@ builder.Services.AddHostedService<PipelineWorker>();
 // Rules + sinks are pluggable. Concrete rules are built from appsettings.
 // TODO: bind IConfiguration "Alerting" section into ThresholdRule/PatternRule instances.
 builder.Services.AddSingleton<IAlertSink, FileAlertSink>();
-builder.Services.AddHostedService<AlertWorker>();
+// builder.Services.AddHostedService<AlertWorker>();  // re-enable once AlertWorker is implemented
 
 var app = builder.Build();
 
